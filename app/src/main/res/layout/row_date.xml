@@ -9,7 +9,7 @@
         android:id="@+id/conditionIcon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingRight="350dp"
+        android:paddingRight="340dp"
         android:src="@drawable/sun"
         android:contentDescription="@null"
         android:scaleType="center"
