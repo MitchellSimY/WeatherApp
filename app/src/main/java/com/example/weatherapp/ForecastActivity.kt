@@ -10,22 +10,23 @@ class ForecastActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
 
     private val adapterData = listOf<Data>(
-        Data(1643922823, 19, 24,17,"6:00PM","8:00AM"),
-        Data(1644009223, 20, 25, 18,"6:01PM","8:01AM"),
-        Data(1644095623, 15, 20,10,"6:01PM","8:01AM"),
-        Data(1644182023, 10,15,8,"6:02PM","8:02AM"),
-        Data(1644268423, 23,25,20,"6:02PM","8:02AM"),
-        Data(1644354823, 30,33,27,"6:03PM","8:02AM"),
-        Data(1644441223, -14,1,-15,"6:04PM","8:03AM"),
-        Data(1644527623, 13,20,10,"6:04pM","8:04AM"),
-        Data(1644614023, 24,25,23,"6:05PM","8:05AM"),
-        Data(1644786823, 13,13,10,"6:06PM","8:06AM"),
-        Data(1644873223, 30,31,28,"6:07PM","8:06AM"),
-        Data(1644959623, 31,30,25,"6:08PM","8:06AM"),
-        Data(1645046023, 27,33,27,"6:09PM","8:07AM"),
-        Data(1645132423, 25,29,22,"6:10PM","8:08AM"),
-        Data(1645218823, 27,29,10,"6:10PM","8:09AM"),
+        Data(1643922823, 1643875200, 1643846940, Data.ForecastTemp(19f, 24f, 17f), 0.0f, 0),
+        Data(1644009223, 1643933340, 1644001260, Data.ForecastTemp(20f, 25f, 18f), 0.0f, 0),
+        Data(1644095623, 1644048060, 1644087720, Data.ForecastTemp(15f, 20f, 10f), 0.0f, 0),
+        Data(1644182023, 1644134520, 1644174120, Data.ForecastTemp(10f, 15f, 8f), 0.0f, 0),
+        Data(1644268423, 1644220980, 1644260580, Data.ForecastTemp(23f, 25f, 20f), 0.0f, 0),
+        Data(1644354823, 1644307440, 1644347040, Data.ForecastTemp(30f, 33f, 27f), 0.0f, 0),
+        Data(1644441223, 1644393900, 1644433500, Data.ForecastTemp(-14f, 1f, -15f), 0.0f, 0),
+        Data(1644527623, 1644480360, 1644519960, Data.ForecastTemp(13f, 20f, 10f), 0.0f, 0),
+        Data(1644614023, 1644566700, 1644538140, Data.ForecastTemp(24f, 25f, 23f), 0.0f, 0),
+        Data(1644786823, 1644653160, 1644692760, Data.ForecastTemp(13f, 13f, 10f), 0.0f, 0),
+        Data(1644873223, 1644739620, 1644779220, Data.ForecastTemp(30f, 31f, 28f), 0.0f, 0),
+        Data(1644959623, 1644797340, 1644865800, Data.ForecastTemp(31f, 30f, 25f), 0.0f, 0),
+        Data(1645046023, 1644912540, 1644952260, Data.ForecastTemp(27f, 33f, 27f), 0.0f, 0),
+        Data(1645132423, 1644999000, 1645038720, Data.ForecastTemp(25f, 29f, 22f), 0.0f, 0),
+        Data(1645218823, 1645142940, 1645056540, Data.ForecastTemp(27f, 29f, 10f), 0.0f, 0),
     )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

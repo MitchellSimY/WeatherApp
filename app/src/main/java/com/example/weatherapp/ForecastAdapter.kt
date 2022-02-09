@@ -11,13 +11,14 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class ForecastAdapter(private var data: List<Data>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class ForecastAdapter(private var data: List<Data>) :
+    RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val dateView : TextView = view.findViewById(R.id.date);
-        val tempView : TextView = view.findViewById(R.id.tempLabel);
-        val highLowView : TextView = view.findViewById(R.id.highLowLabel);
-        val sunriseView : TextView = view.findViewById(R.id.sunriseLabel);
-        val sunsetView : TextView = view.findViewById(R.id.sunsetLabel);
+        val dateView: TextView = view.findViewById(R.id.date);
+        val dayTempView: TextView = view.findViewById(R.id.tempLabel);
+        val maxMinTempView: TextView = view.findViewById(R.id.highLowLabel);
+        val sunriseView: TextView = view.findViewById(R.id.sunriseLabel);
+        val sunsetView: TextView = view.findViewById(R.id.sunsetLabel);
 
 
         @SuppressLint("NewApi")
@@ -25,18 +26,28 @@ class ForecastAdapter(private var data: List<Data>) : RecyclerView.Adapter<Forec
             val instant = Instant.ofEpochSecond(data.date)
             val dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern("MMM dd")
+
+            val sunriseTimeInstant = Instant.ofEpochSecond(data.sunriseTime)
+            val sunsetTimeInstant = Instant.ofEpochSecond(data.sunsetTime)
+
+            val sunriseDateTime = LocalDateTime.ofInstant(sunriseTimeInstant, ZoneId.systemDefault())
+            val sunsetDateTime = LocalDateTime.ofInstant(sunsetTimeInstant, ZoneId.systemDefault())
+
+            val sunriseFormatter = DateTimeFormatter.ofPattern("h:mma")
+            val sunsetFormatter = DateTimeFormatter.ofPattern("h:mma")
+
             dateView.text = formatter.format(dateTime);
-            tempView.text = "Temp ${data.temp}";
-            highLowView.text = "High ${data.highTemp}  Low ${data.lowTemp}"
-            sunriseView.text = "Sunrise ${data.sunriseTime}"
-            sunsetView.text = "Sunset ${data.sunsetTime}"
+            dayTempView.text = "Temp ${data.temp.day}°";
+            maxMinTempView.text = "High ${data.temp.max}°  Low ${data.temp.min}°"
+            sunriseView.text = "Sunrise ${sunriseFormatter.format(sunriseDateTime)}"
+            sunsetView.text = "Sunset  ${sunsetFormatter.format(sunsetDateTime)}"
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.row_date, parent,false)
+            .inflate(R.layout.row_date, parent, false)
         return ViewHolder(view)
     }
 

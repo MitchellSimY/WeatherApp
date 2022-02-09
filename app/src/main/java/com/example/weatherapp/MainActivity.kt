@@ -13,8 +13,8 @@ class MainActivity : AppCompatActivity() {
 
         val forecastBtn = findViewById<Button>(R.id.forecastButton);
 
-        forecastBtn.setOnClickListener(View.OnClickListener{
-            val forecastIntent = Intent(this,ForecastActivity::class.java)
+        forecastBtn.setOnClickListener(View.OnClickListener {
+            val forecastIntent = Intent(this, ForecastActivity::class.java)
             startActivity(forecastIntent);
         })
     }
