@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class ForecastAdapter(private var data: List<Data>) :
+class ForecastAdapter(private var data: List<DayForecast>) :
     RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dateView: TextView = view.findViewById(R.id.date);
@@ -22,13 +22,13 @@ class ForecastAdapter(private var data: List<Data>) :
 
 
         @SuppressLint("NewApi")
-        fun bind(data: Data) {
-            val instant = Instant.ofEpochSecond(data.date)
+        fun bind(dayForecast: DayForecast) {
+            val instant = Instant.ofEpochSecond(dayForecast.date)
             val dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern("MMM dd")
 
-            val sunriseTimeInstant = Instant.ofEpochSecond(data.sunriseTime)
-            val sunsetTimeInstant = Instant.ofEpochSecond(data.sunsetTime)
+            val sunriseTimeInstant = Instant.ofEpochSecond(dayForecast.sunriseTime)
+            val sunsetTimeInstant = Instant.ofEpochSecond(dayForecast.sunsetTime)
 
             val sunriseDateTime = LocalDateTime.ofInstant(sunriseTimeInstant, ZoneId.systemDefault())
             val sunsetDateTime = LocalDateTime.ofInstant(sunsetTimeInstant, ZoneId.systemDefault())
@@ -37,8 +37,8 @@ class ForecastAdapter(private var data: List<Data>) :
             val sunsetFormatter = DateTimeFormatter.ofPattern("h:mma")
 
             dateView.text = formatter.format(dateTime);
-            dayTempView.text = "Temp ${data.temp.day}°";
-            maxMinTempView.text = "High ${data.temp.max}°  Low ${data.temp.min}°"
+            dayTempView.text = "Temp ${dayForecast.temp.day}°";
+            maxMinTempView.text = "High ${dayForecast.temp.max}°  Low ${dayForecast.temp.min}°"
             sunriseView.text = "Sunrise ${sunriseFormatter.format(sunriseDateTime)}"
             sunsetView.text = "Sunset  ${sunsetFormatter.format(sunsetDateTime)}"
         }
