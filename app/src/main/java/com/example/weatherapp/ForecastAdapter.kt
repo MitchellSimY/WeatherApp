@@ -23,12 +23,12 @@ class ForecastAdapter(private var data: List<DayForecast>) :
 
         @SuppressLint("NewApi")
         fun bind(dayForecast: DayForecast) {
-            val instant = Instant.ofEpochSecond(dayForecast.date)
+            val instant = Instant.ofEpochSecond(dayForecast.dt)
             val dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern("MMM dd")
 
-            val sunriseTimeInstant = Instant.ofEpochSecond(dayForecast.sunriseTime)
-            val sunsetTimeInstant = Instant.ofEpochSecond(dayForecast.sunsetTime)
+            val sunriseTimeInstant = Instant.ofEpochSecond(dayForecast.sunrise)
+            val sunsetTimeInstant = Instant.ofEpochSecond(dayForecast.sunset)
 
             val sunriseDateTime = LocalDateTime.ofInstant(sunriseTimeInstant, ZoneId.systemDefault())
             val sunsetDateTime = LocalDateTime.ofInstant(sunsetTimeInstant, ZoneId.systemDefault())

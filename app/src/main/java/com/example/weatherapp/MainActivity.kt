@@ -20,6 +20,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var api: Api
     private lateinit var cityName: TextView
     private lateinit var currentTemp: TextView
+    private lateinit var feelsLike: TextView
+    private lateinit var lowTemp: TextView
+    private lateinit var highTemp: TextView
+    private lateinit var humidity: TextView
+    private lateinit var pressure: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         cityName = findViewById(R.id.cityName)
         currentTemp = findViewById(R.id.temperature)
+        feelsLike = findViewById(R.id.feelsLike)
+        lowTemp = findViewById(R.id.low)
+        highTemp = findViewById(R.id.high)
+        humidity = findViewById(R.id.humidity)
+        pressure = findViewById(R.id.pressure)
 
         val forecastBtn = findViewById<Button>(R.id.forecastButton)
 
@@ -50,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val call: Call<CurrentConditions> = api.getCurrentConditions("55127")
+        val call: Call<CurrentConditions> = api.getCurrentConditions("32789")
         call.enqueue(object: Callback<CurrentConditions> {
             override fun onResponse(
                 call: Call<CurrentConditions>,
@@ -73,7 +84,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindData(currentConditions: CurrentConditions) {
         cityName.text = currentConditions.name
-//        currentTemp.text = getString(R.string.temperature, currentConditions.main.temp.toInt());
         currentTemp.text = getString(R.string.temperature, currentConditions.main.temp.toInt())
+        feelsLike.text = getString(R.string.feelsLike, currentConditions.main.feelsLike.toInt())
+        lowTemp.text = getString(R.string.low, currentConditions.main.tempMin.toInt())
+        highTemp.text = getString(R.string.high, currentConditions.main.tempMax.toInt())
+        pressure.text = getString(R.string.pressure, currentConditions.main.pressure.toInt())
+        humidity.text = getString(R.string.humidity, currentConditions.main.humidity.toInt())
     }
 }
