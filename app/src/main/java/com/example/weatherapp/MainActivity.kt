@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var highTemp: TextView
     private lateinit var humidity: TextView
     private lateinit var pressure: TextView
+    private lateinit var conditionIcon: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         highTemp = findViewById(R.id.high)
         humidity = findViewById(R.id.humidity)
         pressure = findViewById(R.id.pressure)
+        conditionIcon = findViewById(R.id.conditionIcon)
 
         val forecastBtn = findViewById<Button>(R.id.forecastButton)
 
@@ -90,5 +94,12 @@ class MainActivity : AppCompatActivity() {
         highTemp.text = getString(R.string.high, currentConditions.main.tempMax.toInt())
         pressure.text = getString(R.string.pressure, currentConditions.main.pressure.toInt())
         humidity.text = getString(R.string.humidity, currentConditions.main.humidity.toInt())
+
+        // How to get the icon to change
+        val iconName = currentConditions.weather.firstOrNull()?.icon;
+        val iconUrl = "https://openweathermap.org/img/wn/${iconName}@2x.png"
+        Glide.with(this)
+            .load(iconUrl)
+            .into(conditionIcon)
     }
 }

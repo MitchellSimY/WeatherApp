@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -19,6 +21,7 @@ class ForecastAdapter(private var data: List<DayForecast>) :
         val maxMinTempView: TextView = view.findViewById(R.id.highLowLabel);
         val sunriseView: TextView = view.findViewById(R.id.sunriseLabel);
         val sunsetView: TextView = view.findViewById(R.id.sunsetLabel);
+        val conditionIcon: ImageView = view.findViewById(R.id.conditionIcon)
 
 
         @SuppressLint("NewApi")
@@ -35,6 +38,12 @@ class ForecastAdapter(private var data: List<DayForecast>) :
 
             val sunriseFormatter = DateTimeFormatter.ofPattern("h:mma")
             val sunsetFormatter = DateTimeFormatter.ofPattern("h:mma")
+
+            val iconName = dayForecast.weather.firstOrNull()?.icon;
+            val iconUrl = "https://openweathermap.org/img/wn/${iconName}@2x.png"
+            Glide.with(conditionIcon)
+                .load(iconUrl)
+                .into(conditionIcon)
 
             dateView.text = formatter.format(dateTime);
             dayTempView.text = "Temp ${dayForecast.temp.day}°";
