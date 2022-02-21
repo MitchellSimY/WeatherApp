@@ -12,7 +12,7 @@ interface Api {
         @Query("units") units: String = "imperial",
         @Query("appid") appId: String = "127b4de6be5116abbdbaa8296a35f7e1",
 
-        ) : Call<CurrentConditions>
+        ): Call<CurrentConditions>
 
     @GET("daily")
     fun getForecast(
@@ -21,5 +21,5 @@ interface Api {
         @Query("appid") appId: String = "127b4de6be5116abbdbaa8296a35f7e1",
         @Query("cnt") cnt: String = "16"
 
-        ) : Call<Forecast>
+    ): Call<Forecast>
 }

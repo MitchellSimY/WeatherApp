@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val call: Call<CurrentConditions> = api.getCurrentConditions("32789")
-        call.enqueue(object: Callback<CurrentConditions> {
+        call.enqueue(object : Callback<CurrentConditions> {
             override fun onResponse(
                 call: Call<CurrentConditions>,
                 response: Response<CurrentConditions>
