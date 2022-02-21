@@ -46,7 +46,7 @@ class ForecastActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val call: Call<Forecast> = api.getForecast("32789")
+        val call: Call<Forecast> = api.getForecast("55127")
         call.enqueue(object : Callback<Forecast> {
             override fun onResponse(
                 call: Call<Forecast>,
