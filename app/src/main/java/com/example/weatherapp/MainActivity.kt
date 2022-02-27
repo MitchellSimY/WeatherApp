@@ -4,21 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.weatherapp.databinding.ActivityForecastBinding
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.databinding.RowDateBinding
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint

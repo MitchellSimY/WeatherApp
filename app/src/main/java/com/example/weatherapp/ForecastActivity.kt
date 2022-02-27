@@ -2,11 +2,8 @@ package com.example.weatherapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.databinding.ActivityForecastBinding
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -22,7 +19,7 @@ class ForecastActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forecast)
+        setContentView(R.layout.recycler_view)
 
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
