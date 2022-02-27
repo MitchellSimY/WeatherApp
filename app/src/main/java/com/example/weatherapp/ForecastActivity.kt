@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.databinding.ActivityForecastBinding
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -18,12 +19,6 @@ class ForecastActivity : AppCompatActivity() {
 
     private lateinit var api: Api
     private lateinit var recyclerView: RecyclerView
-    private lateinit var conditionIcon: TextView
-    private lateinit var date: TextView
-    private lateinit var temperature: TextView
-    private lateinit var highLow: TextView
-    private lateinit var sunrise: TextView
-    private lateinit var sunset: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
