@@ -8,13 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.weatherapp.databinding.ActivityForecastBinding
+import com.example.weatherapp.databinding.ActivityMainBinding
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class ForecastAdapter(private var data: List<DayForecast>) :
-    RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class ForecastAdapter(private var data: List<DayForecast>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dateView: TextView = view.findViewById(R.id.date);
         val dayTempView: TextView = view.findViewById(R.id.tempLabel);
@@ -57,6 +58,7 @@ class ForecastAdapter(private var data: List<DayForecast>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.row_date, parent, false)
+
         return ViewHolder(view)
     }
 
