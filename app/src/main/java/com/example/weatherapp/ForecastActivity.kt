@@ -2,63 +2,37 @@ package com.example.weatherapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ForecastActivity : AppCompatActivity() {
-
-    private lateinit var api: Api
     private lateinit var recyclerView: RecyclerView
+
+    @Inject
+    lateinit var viewModel : ForecastViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recycler_view)
 
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-
-        api = retrofit.create(Api::class.java)
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        viewModel.forecasts.observe(this){
+            // Assigning forecasts variable in the viewModel
+            forecasts -> ForecastAdapter(forecasts.list)
+
+            // Then this gives the adapter the list of data
+            recyclerView.adapter = ForecastAdapter(forecasts.list)
+        }
+        viewModel.loadData()
     }
 
     override fun onResume() {
         super.onResume()
-        val call: Call<Forecast> = api.getForecast("55127")
-        call.enqueue(object : Callback<Forecast> {
-            override fun onResponse(
-                call: Call<Forecast>,
-                response: Response<Forecast>
-            ) {
-                // This is getting the Json.
-                val forecast = response.body()
-
-                forecast?.let {
-                    // Why: This is passing the actual list of objects to the
-                    // class ForecastAdapter.
-                    recyclerView.adapter = ForecastAdapter(forecast.list);
-                }
-            }
-
-            override fun onFailure(call: Call<Forecast>, t: Throwable) {
-            }
-
-        })
-
     }
-
 }

@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="75dp">
+    android:layout_height="85dp">
 
     <ImageView
         android:id="@+id/conditionIcon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:paddingRight="0dp"
         android:contentDescription="@null"
-        android:paddingRight="340dp"
-        android:scaleType="center"
         android:src="@drawable/sun"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/date"
@@ -58,5 +58,7 @@
         android:paddingLeft="280dp"
         android:paddingTop="38dp"
         android:text="Sunset 6:00pm"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="43dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

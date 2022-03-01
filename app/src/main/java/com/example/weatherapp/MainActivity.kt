@@ -7,6 +7,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.example.weatherapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.currentConditions.observe(this) {
             currentConditions -> bindData(currentConditions)
         }
-        viewModel.loadData();
+        viewModel.loadData()
     }
 
     private fun bindData(currentConditions: CurrentConditions) {

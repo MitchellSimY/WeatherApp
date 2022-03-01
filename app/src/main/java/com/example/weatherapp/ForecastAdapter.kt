@@ -12,6 +12,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class ForecastAdapter(private var data: List<DayForecast>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+
     class ViewHolder(private var binding: RowDateBinding) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("NewApi")
@@ -31,6 +32,7 @@ class ForecastAdapter(private var data: List<DayForecast>) : RecyclerView.Adapte
 
             val iconName = dayForecast.weather.firstOrNull()?.icon;
             val iconUrl = "https://openweathermap.org/img/wn/${iconName}@2x.png"
+
             Glide.with(binding.conditionIcon)
                 .load(iconUrl)
                 .into(binding.conditionIcon)
