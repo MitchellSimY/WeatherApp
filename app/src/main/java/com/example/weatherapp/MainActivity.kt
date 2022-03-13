@@ -1,57 +1,47 @@
 package com.example.weatherapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import com.bumptech.glide.Glide
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.models.CurrentConditions
-import com.example.weatherapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    @Inject lateinit var viewModel: MainViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
-        binding.forecastButton.setOnClickListener(View.OnClickListener {
-            val forecastIntent = Intent(this, ForecastActivity::class.java)
-            startActivity(forecastIntent)
-        })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.currentConditions.observe(this) {
-            currentConditions -> bindData(currentConditions)
+        if (savedInstanceState == null) {
+            replaceFragment(ZipCodeFragment())
         }
-        viewModel.loadData()
+
+        val newFragment = CurrentConditionsFragment()
+        val fragmentManager : FragmentManager = supportFragmentManager
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, ZipCodeFragment()).commit()
+//        binding.forecastButton.setOnClickListener() {
+//            replaceFragment(ForecastFragment())
+//        }
+
+//        binding.fragmentContainer.
+
+
     }
 
-    private fun bindData(currentConditions: CurrentConditions) {
-        binding.cityName.text = currentConditions.name
-        binding.temperature.text = getString(R.string.temperature, currentConditions.main.temp.toInt())
-        binding.feelsLike.text = getString(R.string.feelsLike, currentConditions.main.feelsLike.toInt())
-        binding.low.text = getString(R.string.low, currentConditions.main.tempMin.toInt())
-        binding.high.text = getString(R.string.high, currentConditions.main.tempMax.toInt())
-        binding.pressure.text = getString(R.string.pressure, currentConditions.main.pressure.toInt())
-        binding.humidity.text = getString(R.string.humidity, currentConditions.main.humidity.toInt())
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
 
-        // How to get the icon to change
-        val iconName = currentConditions.weather.firstOrNull()?.icon;
-        val iconUrl = "https://openweathermap.org/img/wn/${iconName}@2x.png"
-        Glide.with(this)
-            .load(iconUrl)
-            .into(binding.conditionIcon)
+        fragmentTransaction.replace(R.id.fragmentContainer,fragment)
+        fragmentTransaction.commit()
     }
+
+
 }
