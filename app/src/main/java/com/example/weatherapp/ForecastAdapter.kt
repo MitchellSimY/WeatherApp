@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherapp.databinding.RowDateBinding
+import com.example.weatherapp.models.DayForecast
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId

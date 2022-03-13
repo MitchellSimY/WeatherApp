@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.models.CurrentConditions
+import com.example.weatherapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint

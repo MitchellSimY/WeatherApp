@@ -1,8 +1,10 @@
-package com.example.weatherapp
+package com.example.weatherapp.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.api.Api
+import com.example.weatherapp.models.CurrentConditions
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject

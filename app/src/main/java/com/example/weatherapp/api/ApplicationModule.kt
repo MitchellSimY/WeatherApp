@@ -1,6 +1,5 @@
-package com.example.weatherapp
+package com.example.weatherapp.api
 
-import androidx.core.app.ActivityCompat
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
