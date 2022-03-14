@@ -27,18 +27,12 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.currentconditions, container, false)
-
-        // When button is clicked, go here
         val forecastButton = view.findViewById<Button>(R.id.forecastButton)
 
+        // When button is clicked, go here
         forecastButton.setOnClickListener() {
             findNavController().navigate(R.id.navCurrentConditionsToForecast)
         }
-
-
-//        viewModel.currentConditions.observe(viewLifecycleOwner) {
-//                currentConditions -> bindData(currentConditions)
-//        }
 
         return view
     }
@@ -46,11 +40,7 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        binding = CurrentconditionsBinding.inflate(layoutInflater)
-//        viewModel.loadData()
-
-//        bindData(currentConditions)
+        requireActivity().title = "Current Conditions"
     }
 
 

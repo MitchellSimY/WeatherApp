@@ -2,7 +2,6 @@ package com.example.weatherapp.fragments
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,13 +51,6 @@ class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
 
 
         })
-
-
-        // When button is clicked, go here
-//        view.button.setOnClickListener {
-//            findNavController().navigate(R.id.navZipToCurrentConditions)
-//        }
-
 
         button.setOnClickListener {
             findNavController().navigate(R.id.navZipToCurrentConditions)
