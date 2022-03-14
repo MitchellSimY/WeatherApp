@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp">
         <activity
-            android:name=".ForecastFragment"
+            android:name=".fragments.ForecastFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

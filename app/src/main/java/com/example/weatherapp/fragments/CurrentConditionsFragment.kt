@@ -1,13 +1,12 @@
-package com.example.weatherapp
+package com.example.weatherapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.example.weatherapp.R
 import com.example.weatherapp.databinding.CurrentconditionsBinding
 import com.example.weatherapp.models.CurrentConditions
 import com.example.weatherapp.viewmodels.CurrentConditionsViewModel
