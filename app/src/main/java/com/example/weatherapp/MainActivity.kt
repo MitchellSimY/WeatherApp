@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.weatherapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -11,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+//    private lateinit var navController : NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,20 +21,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // NAV
+//        val navHostFragment = supportFragmentManager
+//            .findFragmentById(R.id.fragmentContainer) as NavHostFragment
+//        navController = navHostFragment.navController
+
+
+
         if (savedInstanceState == null) {
-            replaceFragment(ZipCodeFragment())
+            replaceFragment(ForecastFragment())
         }
-
-        val newFragment = CurrentConditionsFragment()
-        val fragmentManager : FragmentManager = supportFragmentManager
-
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, ZipCodeFragment()).commit()
-//        binding.forecastButton.setOnClickListener() {
-//            replaceFragment(ForecastFragment())
-//        }
-
-//        binding.fragmentContainer.
-
 
     }
 
@@ -45,3 +44,9 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
+
+/**
+ * Notes to self
+ * https://www.youtube.com/watch?v=Ii_BDxYHvuA&ab_channel=DevEasy
+ */

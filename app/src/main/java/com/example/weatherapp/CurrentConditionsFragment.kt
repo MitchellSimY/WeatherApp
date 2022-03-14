@@ -1,6 +1,9 @@
 package com.example.weatherapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
@@ -15,6 +18,15 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
     private lateinit var binding : CurrentconditionsBinding
     @Inject
     lateinit var viewModel: CurrentConditionsViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.currentconditions, container, false)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
