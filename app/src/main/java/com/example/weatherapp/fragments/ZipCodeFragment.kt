@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ZipcodeentryBinding
 
@@ -23,7 +24,7 @@ class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
 
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener {
-//            findNavController().navigate(R.id.action_zipCodeFragment_to_currentConditionsFragment3)
+            findNavController().navigate(R.id.action_zipCodeFragment_to_currentConditionsFragment)
         }
         return view
     }

@@ -6,6 +6,8 @@
         <entry key="../../../../../layout/custom_preview.xml" value="0.2" />
         <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/activity_forecast.xml" value="0.21875" />
         <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/currentconditions.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/recycler_view.xml" value="0.1875" />
         <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/row_date.xml" value="0.21875" />
         <entry key="..\:/AndroidStudio/WeatherApp/app/src/main/res/layout/zipcodeentry.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_forecast.xml" value="0.203125" />

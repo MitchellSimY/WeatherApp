@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.fragments.ForecastFragment
+import com.example.weatherapp.fragments.ZipCodeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if (savedInstanceState == null) {
-            replaceFragment(ForecastFragment())
+            replaceFragment(ZipCodeFragment())
         }
 
     }
