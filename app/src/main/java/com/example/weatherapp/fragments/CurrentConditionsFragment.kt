@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.CurrentconditionsBinding
@@ -15,6 +17,7 @@ import javax.inject.Inject
 class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
 
     private lateinit var binding : CurrentconditionsBinding
+
     @Inject
     lateinit var viewModel: CurrentConditionsViewModel
 
@@ -23,32 +26,31 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.currentconditions, container, false)
+        val view = inflater.inflate(R.layout.currentconditions, container, false)
+
+        // When button is clicked, go here
+        val forecastButton = view.findViewById<Button>(R.id.forecastButton)
+
+        forecastButton.setOnClickListener() {
+            findNavController().navigate(R.id.navCurrentConditionsToForecast)
+        }
+
+
+//        viewModel.currentConditions.observe(viewLifecycleOwner) {
+//                currentConditions -> bindData(currentConditions)
+//        }
+
+        return view
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = CurrentconditionsBinding.inflate(layoutInflater)
-
-//        viewModel.currentConditions.
-
-//        viewModel.currentConditions.observe(this) {
-//                currentConditions -> bindData(currentConditions)
-//        }
+//        binding = CurrentconditionsBinding.inflate(layoutInflater)
 //        viewModel.loadData()
 
-        // bindData(currentConditions)
-
-        binding.forecastButton.setOnClickListener() {
-            replaceFragment(ForecastFragment())
-        }
-
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-
+//        bindData(currentConditions)
     }
 
 

@@ -20,16 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // NAV
-//        val navHostFragment = supportFragmentManager
-//            .findFragmentById(R.id.fragmentContainer) as NavHostFragment
-//        navController = navHostFragment.navController
-
-
-
-        if (savedInstanceState == null) {
-            replaceFragment(ZipCodeFragment())
-        }
+//        if (savedInstanceState == null) {
+//            replaceFragment(ZipCodeFragment())
+//        }
 
     }
 

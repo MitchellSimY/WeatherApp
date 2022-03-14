@@ -2,18 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/zipCodeFragment">
-
+    app:startDestination="@id/zipCodeFragment2">
     <fragment
-        android:id="@+id/zipCodeFragment"
+        android:id="@+id/zipCodeFragment2"
         android:name="com.example.weatherapp.fragments.ZipCodeFragment"
         android:label="ZipCodeFragment" >
         <action
-            android:id="@+id/action_zipCodeFragment_to_currentConditionsFragment"
+            android:id="@+id/navZipToCurrentConditions"
             app:destination="@id/currentConditionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/currentConditionsFragment"
         android:name="com.example.weatherapp.fragments.CurrentConditionsFragment"
-        android:label="CurrentConditionsFragment" />
+        android:label="CurrentConditionsFragment" >
+        <action
+            android:id="@+id/navCurrentConditionsToForecast"
+            app:destination="@id/forecastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:name="com.example.weatherapp.fragments.ForecastFragment"
+        android:label="ForecastFragment" />
 </navigation>

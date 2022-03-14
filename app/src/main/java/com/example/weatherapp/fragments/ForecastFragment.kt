@@ -15,7 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ForecastFragment : Fragment(R.layout.row_date) {
 //    private lateinit var recyclerView: RecyclerView
-    private lateinit var binding: RowDateBinding
+    private lateinit var binding : RowDateBinding
 
     @Inject
     lateinit var viewModel : ForecastViewModel

@@ -20,12 +20,15 @@ class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.zipcodeentry, container, false)
 
+        // When button is clicked, go here
         val button = view.findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_zipCodeFragment_to_currentConditionsFragment)
+            findNavController().navigate(R.id.navZipToCurrentConditions)
         }
+
         return view
     }
 
@@ -35,10 +38,5 @@ class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
         Log.d("Testing From Zip Code: ", "Before the click")
 
         binding = ZipcodeentryBinding.inflate(layoutInflater)
-
-
-
-
     }
-
 }
