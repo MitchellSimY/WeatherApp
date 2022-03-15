@@ -13,13 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ZipcodeentryBinding
-import com.example.weatherapp.viewmodels.ZipCodeViewModel
+import com.example.weatherapp.viewmodels.SearchViewModel
 
-class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
+class SearchFragment : Fragment(R.layout.zipcodeentry) {
 
-    private lateinit var binding : ZipcodeentryBinding
-    private lateinit var viewModel: ZipCodeViewModel
-
+    private lateinit var binding: ZipcodeentryBinding
+    private lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,32 +27,35 @@ class ZipCodeFragment : Fragment(R.layout.zipcodeentry) {
     ): View? {
         val view = inflater.inflate(R.layout.zipcodeentry, container, false)
         val button = view.findViewById<Button>(R.id.button)
-        val zipCode = view.findViewById<EditText>(R.id.zipCode)
+        val zipCodeText = view.findViewById<EditText>(R.id.zipCode)
+        var zipCode: String? = null
 
         binding = ZipcodeentryBinding.inflate(layoutInflater)
-        viewModel = ZipCodeViewModel()
+        viewModel = SearchViewModel()
 
-        viewModel.enableButton.observe(viewLifecycleOwner) {
-            enable -> button.isEnabled = enable
+        viewModel.enableButton.observe(viewLifecycleOwner) { enable ->
+            button.isEnabled = enable
         }
 
-        zipCode.addTextChangedListener(object: TextWatcher {
+        zipCodeText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val newZip = p0.toString()
-                newZip.let {viewModel.updateZipCode(it)}
+                zipCode = newZip
+                newZip.let { viewModel.updateZipCode(it) }
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
-
-
         })
 
+
         button.setOnClickListener {
-            findNavController().navigate(R.id.navZipToCurrentConditions)
+            val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode)
+            findNavController().navigate(action)
+            Log.d("Zip", zipCodeText.toString())
         }
 
         return view

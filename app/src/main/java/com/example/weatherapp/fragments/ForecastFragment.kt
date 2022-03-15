@@ -14,11 +14,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ForecastFragment : Fragment(R.layout.row_date) {
-//    private lateinit var recyclerView: RecyclerView
-    private lateinit var binding : RowDateBinding
+    //    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: RowDateBinding
 
     @Inject
-    lateinit var viewModel : ForecastViewModel
+    lateinit var viewModel: ForecastViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +34,10 @@ class ForecastFragment : Fragment(R.layout.row_date) {
 
         binding = RowDateBinding.inflate(layoutInflater)
 
-        viewModel.forecasts.observe(this){
+        viewModel.forecasts.observe(this) {
             // Assigning forecasts variable in the viewModel
-                forecasts -> ForecastAdapter(forecasts.list)
+                forecasts ->
+            ForecastAdapter(forecasts.list)
 
             // Then this gives the adapter the list of data
 //            recyclerView.adapter = ForecastAdapter(forecasts.list)

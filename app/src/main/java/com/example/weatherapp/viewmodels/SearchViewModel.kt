@@ -1,10 +1,13 @@
 package com.example.weatherapp.viewmodels
 
+import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.fragments.CurrentConditionsFragment
 
-class ZipCodeViewModel: ViewModel() {
+class SearchViewModel: ViewModel() {
     private val _enableButton = MutableLiveData(false)
 
     private var zipCode : String? = null

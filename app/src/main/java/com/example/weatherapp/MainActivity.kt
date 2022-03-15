@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.fragments.ForecastFragment
-import com.example.weatherapp.fragments.ZipCodeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

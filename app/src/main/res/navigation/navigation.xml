@@ -5,7 +5,7 @@
     app:startDestination="@id/zipCodeFragment2">
     <fragment
         android:id="@+id/zipCodeFragment2"
-        android:name="com.example.weatherapp.fragments.ZipCodeFragment"
+        android:name="com.example.weatherapp.fragments.SearchFragment"
         android:label="ZipCodeFragment" >
         <action
             android:id="@+id/navZipToCurrentConditions"
@@ -18,6 +18,10 @@
         <action
             android:id="@+id/navCurrentConditionsToForecast"
             app:destination="@id/forecastFragment" />
+        <argument
+            android:name="zipCodeArgument"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/forecastFragment"

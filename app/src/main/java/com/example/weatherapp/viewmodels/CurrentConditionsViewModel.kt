@@ -15,9 +15,14 @@ class CurrentConditionsViewModel @Inject constructor(private val service : Api) 
     val currentConditions : LiveData<CurrentConditions>
         get() = _currentConditions
 
-    fun loadData() = runBlocking{
+    private val _zipCode = MutableLiveData<String>()
+    val zipCode : LiveData<String>
+        get() = _zipCode
+
+
+    fun loadData(zipCode : String) = runBlocking{
         launch {
-            _currentConditions.value = service.getCurrentConditions("55127")
+            _currentConditions.value = service.getCurrentConditions(zipCode)
         }
     }
 }
