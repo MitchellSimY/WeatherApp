@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,15 +13,19 @@ import com.example.weatherapp.R
 import com.example.weatherapp.api.Api
 import com.example.weatherapp.databinding.CurrentconditionsBinding
 import com.example.weatherapp.models.CurrentConditions
+
 import com.example.weatherapp.viewmodels.CurrentConditionsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.HttpException
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
 
     private val args: CurrentConditionsFragmentArgs by navArgs()
     private lateinit var binding: CurrentconditionsBinding
     private lateinit var api: Api
-    private var zipCodeData : String? = null
+//    private lateinit var zipCode: ZipCode
 
     @Inject
     lateinit var viewModel: CurrentConditionsViewModel
@@ -33,32 +35,29 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.currentconditions, container, false)
-        val forecastButton = view.findViewById<Button>(R.id.forecastButton)
-        val zipCodeIsText = view.findViewById<TextView>(R.id.zipCodeIs)
+        // val view = inflater.inflate(R.layout.currentconditions, container, false)
+        val zipCodeData = args.zipCodeArgument
 
-        zipCodeData = args.zipCodeArgument
 
-        zipCodeIsText.setText("ZipCode is ${zipCodeData}")
+        binding = CurrentconditionsBinding.inflate(layoutInflater)
 
-        // ===============
-        // viewModel = CurrentConditionsViewModel()
+        viewModel?.currentConditions?.observe(viewLifecycleOwner) { currentConditions ->
+            bindData(currentConditions)
+        }
 
-//        viewModel.currentConditions.observe(viewLifecycleOwner) { currentConditions ->
-//            bindData(currentConditions)
-//        }
-//
-//        if (zipCodeData != null) {
-//            viewModel.loadData(zipCodeData)
-//        }
+        try {
+            zipCodeData?.let { viewModel?.loadData(it) }
+        } catch (e: HttpException) {
+            Log.d("API Call error: ", e.toString())
+        }
 
-        // ===============
 
         // When button is clicked, go here
-        forecastButton.setOnClickListener() {
-            findNavController().navigate(R.id.navCurrentConditionsToForecast)
+        binding.forecastButton.setOnClickListener() {
+            val action = SearchFragmentDirections.navCurrentConditionsToForecast(zipCodeData)
+            findNavController().navigate(action)
         }
-        return view
+        return binding.root
     }
 
     override fun onResume() {
@@ -70,9 +69,8 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().title = "Current Conditions"
-        
-    }
 
+    }
 
     private fun bindData(currentConditions: CurrentConditions) {
         binding.cityName.text = currentConditions.name

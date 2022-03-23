@@ -101,14 +101,14 @@
         app:layout_constraintStart_toStartOf="@id/cityName"
         app:layout_constraintTop_toBottomOf="@id/pressure" />
 
-    <TextView
-        android:id="@+id/zipCodeIs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="The zip is: "
-        android:textSize="20sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="374dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/zipCodeIs"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="The zip is: "-->
+<!--        android:textSize="20sp"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        tools:layout_editor_absoluteX="162dp"-->
+<!--        tools:layout_editor_absoluteY="374dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

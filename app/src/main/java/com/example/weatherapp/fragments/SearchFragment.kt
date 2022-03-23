@@ -55,7 +55,6 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
         button.setOnClickListener {
             val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode)
             findNavController().navigate(action)
-            Log.d("Zip", zipCodeText.toString())
         }
 
         return view
@@ -64,7 +63,6 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().title = "Zip Code"
-        Log.d("Testing From Zip Code: ", "Before the click")
 
         binding = ZipcodeentryBinding.inflate(layoutInflater)
     }

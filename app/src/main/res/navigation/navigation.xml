@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
     app:startDestination="@id/zipCodeFragment2">
+
+<!--    Search Fragment -->
     <fragment
         android:id="@+id/zipCodeFragment2"
         android:name="com.example.weatherapp.fragments.SearchFragment"
@@ -10,7 +12,12 @@
         <action
             android:id="@+id/navZipToCurrentConditions"
             app:destination="@id/currentConditionsFragment" />
+        <action
+            android:id="@+id/navCurrentConditionsToForecast"
+            app:destination="@id/forecastFragment" />
     </fragment>
+
+<!--    Current Conditions Frag -->
     <fragment
         android:id="@+id/currentConditionsFragment"
         android:name="com.example.weatherapp.fragments.CurrentConditionsFragment"
@@ -23,8 +30,15 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
+    <!--    Forecast Conditions Frag -->
     <fragment
         android:id="@+id/forecastFragment"
         android:name="com.example.weatherapp.fragments.ForecastFragment"
-        android:label="ForecastFragment" />
+        android:label="ForecastFragment" >
+        <argument
+            android:name="zipCodeArgument"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
