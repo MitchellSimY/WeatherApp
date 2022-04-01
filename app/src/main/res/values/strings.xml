@@ -7,4 +7,5 @@
     <string name="high">High %1$d°</string>
     <string name="humidity">Humidity %1$d%%</string>
     <string name="pressure">Pressure %1$d hPa</string>
+    <string name="zip_code">Zip Code</string>
 </resources>

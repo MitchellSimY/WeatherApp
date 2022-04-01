@@ -1,6 +1,5 @@
-package com.example.weatherapp
+package com.example.weatherapp.api
 
-import androidx.core.app.ActivityCompat
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -15,7 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object ApplicationModule {
 
     @Provides
-    fun provideApiService() : Api {
+    fun provideApiService(): Api {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
