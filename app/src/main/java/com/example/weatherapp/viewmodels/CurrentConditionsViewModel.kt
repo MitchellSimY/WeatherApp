@@ -15,9 +15,20 @@ class CurrentConditionsViewModel @Inject constructor(private val service: Api) :
     val currentConditions: LiveData<CurrentConditions>
         get() = _currentConditions
 
-    fun loadData(zipCode: String?) = runBlocking {
-        launch {
-            _currentConditions.value = service.getCurrentConditions(zipCode.toString())
+    fun loadData(zipCode: String?, lat: String, long: String) = runBlocking {
+
+        if (zipCode == null) {
+            launch {
+                _currentConditions.value = service.getCurrentConditions(
+                    "",
+                    lat,
+                    long)
+            }
+        } else {
+            launch {
+                _currentConditions.value = service.getCurrentConditions(zipCode.toString())
+            }
         }
     }
+
 }

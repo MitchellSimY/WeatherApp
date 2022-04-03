@@ -1,5 +1,6 @@
 package com.example.weatherapp.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,11 +26,11 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
     private val args: CurrentConditionsFragmentArgs by navArgs()
     private lateinit var binding: CurrentconditionsBinding
     private lateinit var api: Api
-//    private lateinit var zipCode: ZipCode
 
     @Inject
     lateinit var viewModel: CurrentConditionsViewModel
 
+    @SuppressLint("LongLogTag")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +38,8 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
     ): View? {
         // val view = inflater.inflate(R.layout.currentconditions, container, false)
         val zipCodeData = args.zipCodeArgument
+        val latitudeData = args.latitudeArgument
+        val longitudeData = args.longitudeArgument
 
 
         binding = CurrentconditionsBinding.inflate(layoutInflater)
@@ -46,15 +49,27 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         }
 
         try {
-            zipCodeData?.let { viewModel?.loadData(it) }
+            viewModel.loadData(zipCodeData, latitudeData.toString(), longitudeData.toString())
+
         } catch (e: HttpException) {
             Log.d("API Call error: ", e.toString())
+            Log.d("API message", e.message())
+            Log.d("API localizeMsg", "${e.localizedMessage}")
+
+            val iterator = (1..3).iterator()
+            if (iterator.hasNext()) {
+                Log.d("API stackTrace", "${e.stackTrace}")
+            }
+
+            Log.d("API printStackTrace", "${e.printStackTrace()}")
+
         }
 
 
         // When button is clicked, go here
         binding.forecastButton.setOnClickListener() {
-            val action = SearchFragmentDirections.navCurrentConditionsToForecast(zipCodeData)
+            val action = SearchFragmentDirections.navCurrentConditionsToForecast(
+                zipCodeData, latitudeData, longitudeData)
             findNavController().navigate(action)
         }
         return binding.root
@@ -64,7 +79,6 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         super.onResume()
 
     }
-// https://stackoverflow.com/questions/58964019/lateinit-property-homeviewmodel-has-not-been-initialized
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

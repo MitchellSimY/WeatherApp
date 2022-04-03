@@ -72,12 +72,13 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
 
 
         submitButton.setOnClickListener {
-            val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode)
+            val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode, null, null)
             findNavController().navigate(action)
         }
 
         locationButton.setOnClickListener {
             daLocation()
+
         }
 
         return view
@@ -117,6 +118,9 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
                     lat = location.latitude
                     Log.d("97LatLong","\"${lat}, ${long}\"")
                     Toast.makeText(this.requireContext(), "${lat}, $long", Toast.LENGTH_LONG).show()
+                    val action = SearchFragmentDirections.navZipToCurrentConditions(null,
+                        lat.toString(), long.toString())
+                    findNavController().navigate(action)
                 }
 
             }
@@ -130,7 +134,7 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
             var lastLocation : Location = locationResult.lastLocation
             lat = lastLocation.latitude
             long = lastLocation.longitude
-            Log.d("LAT LONG",  "${lat}, ${long}")
+            Log.d("LAT LONG BITCH",  "${lat}, ${long}")
         }
 
     }
