@@ -19,10 +19,16 @@
         android:layout_marginHorizontal="12dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="submit" />
+
+    <Button
+        android:id="@+id/findLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use Location" />
 
 
 
