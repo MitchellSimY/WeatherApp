@@ -32,6 +32,8 @@ class ForecastFragment : Fragment(R.layout.recycler_view) {
         // getting the zip code from the argument in XML file.
 
         val zipCodeData = args.zipCodeArgument
+        val latData = args.latitudeArgument
+        val longData = args.longitudeArgument
         binding = RecyclerViewBinding.inflate(layoutInflater)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
@@ -42,7 +44,7 @@ class ForecastFragment : Fragment(R.layout.recycler_view) {
         }
 
         try {
-            zipCodeData?.let { viewModel?.loadData(it) }
+            viewModel.loadData(zipCodeData, latData.toString(), longData.toString())
         } catch (e: HttpException) {
             Log.d("API Call Error: ", e.toString())
         }

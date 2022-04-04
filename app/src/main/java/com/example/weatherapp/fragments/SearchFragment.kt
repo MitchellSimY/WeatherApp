@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,13 +16,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.weatherapp.MainActivity
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ZipcodeentryBinding
 import com.example.weatherapp.viewmodels.SearchViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 
 class SearchFragment : Fragment(R.layout.zipcodeentry) {
@@ -29,6 +31,7 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
     private lateinit var binding: ZipcodeentryBinding
     private lateinit var viewModel: SearchViewModel
     private lateinit var flp : FusedLocationProviderClient
+
 
     private var lat : Double? = null
     private var long : Double? = null
@@ -44,10 +47,8 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
         val locationButton = view.findViewById<Button>(R.id.findLocationButton)
         val zipCodeText = view.findViewById<EditText>(R.id.zipCode)
         var zipCode: String? = null
-//        var long : Double
-//        var lat : Double
 
-        flp = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        flp = LocationServices.getFusedLocationProviderClient(activity as MainActivity)
 
         binding = ZipcodeentryBinding.inflate(layoutInflater)
         viewModel = SearchViewModel()
@@ -71,38 +72,102 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
 
 
         submitButton.setOnClickListener {
-            val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode)
+            val action = SearchFragmentDirections.navZipToCurrentConditions(zipCode, null, null)
             findNavController().navigate(action)
         }
 
         locationButton.setOnClickListener {
-            requestLocationPermission()
+            daLocation()
+
         }
 
         return view
     }
 
-    private fun requestLocationPermission() {
-        val task = flp.lastLocation
+    private fun daLocation() {
+        val locationRequest = LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 0
+        locationRequest.fastestInterval = 0
+        locationRequest.numUpdates = 1
 
-        if (ActivityCompat.checkSelfPermission(this.requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 101)
-            return
-        }
-//        Toast.makeText(this.requireActivity(), "Here", Toast.LENGTH_SHORT).show()
-        task.addOnSuccessListener {
-            if (it != null) {
-                lat = it.latitude
-                long = it.longitude
-                Toast.makeText(this.requireActivity(), "Lat: ${it.latitude}, Long: ${it.longitude}", Toast.LENGTH_SHORT).show()
-            } else if (it == null) {
-                Toast.makeText(this.requireActivity(), "This bitch is null", Toast.LENGTH_SHORT).show()
+        if (checkPermissions()) {
+            if (ActivityCompat.checkSelfPermission(
+                    this.requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this.requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestLocPermission()
+                return
             }
+
+            flp = LocationServices.getFusedLocationProviderClient(this.requireContext())
+            flp.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper()!!)
+
+            flp.lastLocation.addOnSuccessListener(activity as MainActivity) { task ->
+                val location : Location? = task
+
+                if (location == null) {
+                    Toast.makeText(this.requireContext(), "NULL LOCATION", Toast.LENGTH_LONG).show()
+
+                } else {
+                    long = location.longitude
+                    lat = location.latitude
+                    Log.d("97LatLong","\"${lat}, ${long}\"")
+                    Toast.makeText(this.requireContext(), "${lat}, $long", Toast.LENGTH_LONG).show()
+                    val action = SearchFragmentDirections.navZipToCurrentConditions(null,
+                        lat.toString(), long.toString())
+                    findNavController().navigate(action)
+                }
+
+            }
+        } else {
+            requestLocPermission()
         }
-        Log.d("This Lat: ", lat.toString())
     }
 
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            var lastLocation : Location = locationResult.lastLocation
+            lat = lastLocation.latitude
+            long = lastLocation.longitude
+            Log.d("LAT LONG BITCH",  "${lat}, ${long}")
+        }
+
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PARL) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this.requireContext(), "GRANTED", Toast.LENGTH_LONG).show()
+                daLocation()
+            } else {
+                Toast.makeText(this.requireContext(), "DENIED", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun requestLocPermission() {
+        ActivityCompat.requestPermissions(
+            activity as MainActivity, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), PARL)
+    }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            return true
+        }
+        return false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,6 +178,7 @@ class SearchFragment : Fragment(R.layout.zipcodeentry) {
 
     companion object {
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 100
+        private const val PARL = 100
     }
 }
 

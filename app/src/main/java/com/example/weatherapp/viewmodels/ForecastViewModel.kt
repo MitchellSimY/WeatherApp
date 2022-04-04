@@ -18,10 +18,22 @@ class ForecastViewModel @Inject constructor(private val service: Api) : ViewMode
         get() = _forecasts
 
 
-    fun loadData(zipCode: String?) = runBlocking {
-        launch {
-            _forecasts.value = service.getForecast(zipCode.toString())
+    fun loadData(zipCode: String?, lat: String?, long: String?) = runBlocking {
+
+        if (zipCode == null) {
+            launch {
+                _forecasts.value = service.getForecast(
+                    "",
+                    lat,
+                    long
+                )
+            }
+        } else {
+            launch {
+                _forecasts.value = service.getForecast(zipCode.toString())
+            }
         }
+
 
 
     }
