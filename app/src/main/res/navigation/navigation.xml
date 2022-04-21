@@ -29,6 +29,14 @@
             android:name="zipCodeArgument"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="latitudeArgument"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="longitudeArgument"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <!--    Forecast Conditions Frag -->
@@ -38,6 +46,14 @@
         android:label="ForecastFragment" >
         <argument
             android:name="zipCodeArgument"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="latitudeArgument"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="longitudeArgument"
             app:argType="string"
             app:nullable="true" />
     </fragment>
