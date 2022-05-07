@@ -30,6 +30,12 @@
         android:layout_height="wrap_content"
         android:text="Use Location" />
 
+    <Button
+        android:id="@+id/notificationToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable Notifications" />
+
 
 
 </LinearLayout>

@@ -25,7 +25,6 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
 
     private val args: CurrentConditionsFragmentArgs by navArgs()
     private lateinit var binding: CurrentconditionsBinding
-    private lateinit var api: Api
 
     @Inject
     lateinit var viewModel: CurrentConditionsViewModel
@@ -35,7 +34,7 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // val view = inflater.inflate(R.layout.currentconditions, container, false)
         val zipCodeData = args.zipCodeArgument
         val latitudeData = args.latitudeArgument
@@ -55,14 +54,6 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
             Log.d("API Call error: ", e.toString())
             Log.d("API message", e.message())
             Log.d("API localizeMsg", "${e.localizedMessage}")
-
-            val iterator = (1..3).iterator()
-            if (iterator.hasNext()) {
-                Log.d("API stackTrace", "${e.stackTrace}")
-            }
-
-            Log.d("API printStackTrace", "${e.printStackTrace()}")
-
         }
 
 
@@ -100,7 +91,7 @@ class CurrentConditionsFragment : Fragment(R.layout.currentconditions) {
             getString(R.string.humidity, currentConditions.main.humidity.toInt())
 
         // How to get the icon to change
-        val iconName = currentConditions.weather.firstOrNull()?.icon;
+        val iconName = currentConditions.weather.firstOrNull()?.icon
         val iconUrl = "https://openweathermap.org/img/wn/${iconName}@2x.png"
         Glide.with(this)
             .load(iconUrl)
